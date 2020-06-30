@@ -1,42 +1,27 @@
-import { client, Line } from '../line.config'
-import { makeReplyMessages } from '../lib/line'
+import { Line } from '../line.config'
+import { error } from './error'
+import { follow } from './follow'
+import { message } from './message'
 
-/**
- * Main function
- * @param {event} event line event info
- * @returns {string} process content
- */
 export default async (
   event: Line.WebhookEvent & Line.ReplyableEvent
 ): Promise<string> => {
-  // Webhookの検証
-  if (event.replyToken && event.replyToken.match(/^(.)\1*$/)) {
-    return 'Webhookの検証'
-  }
-
-  if (!event.source.userId) {
-    return ''
-  }
-  const { userId } = event.source
-  const eventType = event.type
-
   try {
-    switch (eventType) {
+    switch (event.type) {
       case 'follow': {
-        break
+        return await follow(event as Line.FollowEvent)
       }
       case 'unfollow': {
-        break
+        return 'ブロックまたは友達登録を解除されました'
       }
       case 'message': {
-        break
+        return await message(event as Line.MessageEvent)
       }
       default:
     }
-    console.log(event)
     return ''
   } catch (err) {
-    await client.pushMessage(userId, makeReplyMessages('エラーが発生しました'))
+    await error(event)
     return err
   }
 }

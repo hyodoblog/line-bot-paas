@@ -1,10 +1,7 @@
-import { client, Line } from '../line.config'
+import { client, Line, errorMessage } from '../line.config'
 import { makeReplyMessages } from '../lib/line'
 
-module.exports = async (event: Line.MessageEvent) => {
-  const { replyToken } = event
-  await client.replyMessage(
-    replyToken,
-    makeReplyMessages('エラーが発生しました')
-  )
+export const error = async (event: Line.WebhookEvent): Promise<void> => {
+  const { userId } = event.source
+  await client.pushMessage(userId as string, makeReplyMessages(errorMessage))
 }
