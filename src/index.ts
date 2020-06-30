@@ -1,9 +1,12 @@
 import express from 'express'
+import indexRouter from './routers/index'
 
 const app: express.Express = express()
 
-// body-parserに基づいた着信リクエストの解析
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use('/', indexRouter)
 
-// const router: express.Router = express.Router();
+// Listen on port
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`listening on ${port}`)
+})

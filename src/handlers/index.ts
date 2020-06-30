@@ -33,6 +33,7 @@ export default async (
       }
       default:
     }
+    console.log(event)
     return ''
   } catch (err) {
     await client.pushMessage(userId, makeReplyMessages('エラーが発生しました'))

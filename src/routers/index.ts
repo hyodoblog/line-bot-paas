@@ -16,4 +16,4 @@ router.post('/', Line.middleware(config), (req, res) => {
     })
 })
 
-module.exports = router
+export = router
