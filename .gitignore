@@ -74,3 +74,6 @@ typings/
 
 # key
 key
+
+package-lock.json
+yarn.lock
