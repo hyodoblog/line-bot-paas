@@ -1,5 +1,5 @@
 import { Datastore } from '@google-cloud/datastore'
-import { Entity, Entities, entity } from '@google-cloud/datastore/build/src/entity'
+import { Entity, Entities } from '@google-cloud/datastore/build/src/entity'
 
 const datastore = new Datastore()
 
@@ -59,4 +59,8 @@ export const datastoreGetFindBy = async (
 
   const [entities] = await datastore.runQuery(query)
   return entities[0]
+}
+
+export const datastoreDelete = async (data: Entities): Promise<void> => {
+  await datastore.delete(data)
 }
