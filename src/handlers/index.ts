@@ -21,6 +21,7 @@ export default async (
     }
     return ''
   } catch (err) {
+    console.log(err)
     await error(event)
     return err
   }

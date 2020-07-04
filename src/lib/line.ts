@@ -2,9 +2,11 @@ import { Types } from '../line.config'
 
 // 2000文字以上のテキストを分割してする
 const maxTextLength = 2000
-const makeReplyMessages = (text: string): Types.TextMessage[] => {
-  const replyMessages = []
+const makeReplyMessages = (
+  text: string
+): Types.TextMessage[] | Types.TextMessage => {
   if (text.length > maxTextLength) {
+    const replyMessages = []
     while (text.length > maxTextLength) {
       replyMessages.push({
         type: 'text',
@@ -16,13 +18,13 @@ const makeReplyMessages = (text: string): Types.TextMessage[] => {
       type: 'text',
       text,
     } as Types.TextMessage)
+    return replyMessages
   } else {
-    replyMessages.push({
+    return {
       type: 'text',
       text,
-    } as Types.TextMessage)
+    } as Types.TextMessage
   }
-  return replyMessages
 }
 
 // 10000文字以上返信する時に使用する

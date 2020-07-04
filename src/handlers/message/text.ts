@@ -3,8 +3,12 @@ import { makeReplyMessages } from '../../lib/line'
 
 export const text = async (event: Line.MessageEvent): Promise<void> => {
   const { replyToken } = event
-  await client.replyMessage(
-    replyToken,
-    makeReplyMessages('友達追加ありがとうございます')
-  )
+  const { message } = event as {
+    message: Line.TextEventMessage
+  }
+
+  await client.replyMessage(replyToken, {
+    type: 'text',
+    text: message.text,
+  })
 }
