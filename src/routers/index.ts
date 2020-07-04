@@ -4,6 +4,11 @@ import handlerEvent from '../handlers'
 
 const router: express.Router = express.Router()
 
+router.get('/', (_, res) => {
+  console.log('receive')
+  res.send('Hello World!')
+})
+
 router.post('/', Line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handlerEvent))
     .then((result) => {
